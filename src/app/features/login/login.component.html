@@ -1,0 +1,98 @@
+<div *ngIf="this.signUp; else loginBlock" class="container  px-5" style="margin-top: 10vh;">
+	<div class="row gx-5 justify-content-center">
+		<form class="col-lg-5">
+			<div class="text-center mb-3">
+				<h1> Crear cuenta </h1>
+				<p>Registrar con google:</p>
+		
+				<button type="button" class="btn btn-link btn-floating mx-1 fs-2" (click)="loginGoogle()">
+					<fa-icon [icon]="faGoogle"></fa-icon>
+				</button>
+			</div>
+	
+			<p class="text-center">O con tu correo electrónico:</p>
+	
+			<!-- Email input -->
+			<div class="form-outline mb-4">
+				<label class="form-label" for="loginName">Email o nombre de usuario</label>
+				<input [(ngModel)]="this.emailInputStr" 
+					type="email" id="loginName" class="form-control" 
+					name="emailInput"
+				/>
+			</div>
+	
+			<!-- Password input -->
+			<div class="form-outline mb-4">
+				<label class="form-label" for="loginPassword">Contraseña</label>
+
+				<input [(ngModel)]="this.passwordInputStr" 
+					type="password" id="loginPassword" class="form-control" 
+					name="passwordInput"
+				/>
+			</div>
+	
+			<!-- Submit button -->
+			<button 
+				type="submit" class="btn btn-dark btn-block mb-4"
+				(click)="onConfirm()"
+			>
+				Acceder
+			</button>
+	
+			<!-- Register buttons -->
+			<div class="text-center">
+				<p>¿Ya tenés una cuenta? <a [routerLink]="'/login'">Iniciar sesión</a></p>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<ng-template #loginBlock>
+	<div class="container  px-5" style="margin-top: 10vh;">
+		<div class="row gx-5 justify-content-center">
+			<form class="col-lg-5">
+				<div class="text-center mb-3">
+					<h1> Iniciar Sesión </h1>
+					<p>Iniciar sesión con google:</p>
+		
+					<button type="button" class="btn btn-link btn-floating mx-1 fs-2" (click)="loginGoogle()">
+						<fa-icon [icon]="faGoogle"></fa-icon>
+					</button>
+				</div>
+		
+				<!-- Email input -->
+				<div class="form-outline mb-4">
+					<label class="form-label" for="loginName">Email o nombre de usuario</label>
+					<input [(ngModel)]="this.emailInputStr" 
+						type="email" id="loginName" class="form-control" 
+						name="emailInput"
+					/>
+				</div>
+		
+				<!-- Password input -->
+				<div class="form-outline mb-4">
+					<label class="form-label" for="loginPassword">Contraseña</label>
+
+					<input [(ngModel)]="this.passwordInputStr" 
+						type="password" id="loginPassword" class="form-control" 
+						name="passwordInput"
+					/>
+				</div>
+		
+				<!-- Submit button -->
+				<button 
+					type="submit" class="btn btn-dark btn-block mb-4"
+					(click)="onConfirm()"
+				>
+					Acceder
+				</button>
+		
+				<!-- Register buttons -->
+				<div class="text-center">
+					<p>¿No tenés una cuenta? <a [routerLink]="'/sign-up'">Registrarme</a></p>
+				</div>
+			</form>
+		</div>
+	</div>
+</ng-template>

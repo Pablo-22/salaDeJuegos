@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "saladejuegos-cf2aa": {
+      "hosting": {
+        "salaDeJuegos": [
+          "saladejuegos-cf2aa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "saladejuegos-cf2aa"
+  }
+}
