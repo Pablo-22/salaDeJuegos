@@ -4,6 +4,7 @@ import { User } from 'src/app/core/users/user';
 import Swal from 'sweetalert2';
 import { UsersService } from '../users/users.service';
 import firebase from "@firebase/app-compat";
+import { Router } from '@angular/router';
 
 
 
@@ -14,7 +15,11 @@ export class AuthService {
 
   currentUser:User|undefined
 
-  constructor(private _auth : AngularFireAuth, private _users:UsersService) {
+  constructor(
+    private _auth : AngularFireAuth, 
+    private _users:UsersService,
+    private _router:Router
+  ) {
     this._auth.authState.subscribe(x => {
       if (!x) {
         this.currentUser = undefined
@@ -24,15 +29,17 @@ export class AuthService {
 
   async login(email: string, password: string){
     try{
-      let result:any = await this._auth.signInWithEmailAndPassword(email, password);
+      let result = await this._auth.signInWithEmailAndPassword(email, password);
   
-      this._users.getByField('email', email).then(user => {
+      await this._users.getByField('email', email).then(user => {
         this.currentUser = user
         Swal.fire({
-          title: '¡Bienvenido!',
+          title: '¡Hola de nuevo!',
           text: "Has podido ingresar correctamente",
           icon: 'success',
           confirmButtonText: 'Ok'
+        }).then(x => {
+          this._router.navigate(['/'])
         })
       })
 
@@ -73,17 +80,21 @@ export class AuthService {
       result = this._users.create(user);
 
       if (result) {
-        this.currentUser = this._users.parse(result)
+        await this._users.getByField('email', user.email).then(user => { 
+          this.currentUser = user 
+        })
 
-        Swal.fire({
+        await Swal.fire({
           title: '¡Bienvenido!',
           text: "Has podido ingresar correctamente",
           icon: 'success',
           confirmButtonText: 'Ok'
+        }).then(x => {
+          this._router.navigate(['/'])
         })
       }
 
-      return result;
+      return this.currentUser;
     }
     catch(error) {
       Swal.fire({
@@ -92,7 +103,7 @@ export class AuthService {
         icon: 'error',
         confirmButtonText: 'Ok'
       })
-      return null;
+      return undefined;
     }
   }
 

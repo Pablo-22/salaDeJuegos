@@ -46,6 +46,7 @@ export class UsersService {
   }
 
   parse(data:DocumentData) : User {
+    console.log('DATA: ', data)
     const user = new User()
     user.id = data[0]['id']
     user.email = data[0]['email']

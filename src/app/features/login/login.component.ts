@@ -53,5 +53,10 @@ export class LoginComponent implements OnInit {
 	loginGoogle(){
 		this._auth.loginGoogle(this.emailInputStr, this.passwordInputStr)
 	}
+
+	onAutocomplete(){
+		this.emailInputStr = 'test@gmail.com'
+		this.passwordInputStr = 'contraseña12345'
+	}
 }
 
