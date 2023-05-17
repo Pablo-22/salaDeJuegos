@@ -1,0 +1,31 @@
+.game-container {
+	margin: 3rem;
+	border: solid rgb(197, 197, 197) 2px;
+	min-height: 80vh;
+	border-radius: 10px;
+	background-color: rgb(237, 237, 237);
+
+}
+
+ul > li {
+    display: inline-block;
+	margin-inline: 1rem;
+}
+
+.game-info{
+	font-size: 1rem;
+	color: black;
+}
+
+.game-card{
+	margin:auto; 
+	width: 14rem;
+	height: 20rem;
+}
+
+.game-controls{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+
+}

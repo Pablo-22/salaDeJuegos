@@ -1,0 +1,35 @@
+<div class="game-container">
+
+	<!-- Info sobre el juego -->
+	<div class="m-5 d-flex gap-5">
+		<span class="game-info">💎 Puntos: {{ this.score }}</span>
+
+		<span class="game-info">🧡 Intentos restantes: {{ this.attemps }}</span>
+
+	</div>
+
+	<div class="container">
+		<!-- Palabra a adivinar -->
+		<div class="row d-flex ">
+			<div class="container d-flex align-items-center justify-content-center  gap-3 container-secret-letter">
+
+				<div class="display-1" *ngFor="let letter of secretWord">
+					{{ letter }}
+				</div>
+			</div>
+		</div>
+		
+		<!-- Letras -->
+		<div class="container row d-flex flex-wrap align-content-between mt-5 game-controls"
+			style="padding-left: 4rem; gap: 1.4rem;">
+		
+			<button *ngFor="let letter of this.letters" (click)="this.onLetterSelected(letter)" 
+				[disabled]="this.lettersAlreadySelected.includes(letter)"
+				class=" btn btn-outline-dark"
+				style="width: 3rem; height: 3rem;"> 
+				{{ letter }}
+			</button>
+		</div>
+	</div>
+
+</div>

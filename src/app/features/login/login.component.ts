@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { LogsService } from 'src/app/core/logs/logs.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { LogsService } from 'src/app/core/services/logs/logs.service';
 
 @Component({
   selector: 'app-login',

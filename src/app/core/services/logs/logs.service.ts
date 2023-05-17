@@ -13,10 +13,10 @@ export class LogsService {
   constructor(private _auth : AuthService, private _crud : CrudService) { }
 
   userLog(value:string){
-    const userId = this._auth.currentUser?.id;
-    const log = new Log(value, 'user', userId? userId : '')
-
-    this._crud.create(this.collectionName, log)
+    const userId = this._auth.currentUser$.subscribe(user => {
+      const log = new Log(value, 'user', user?.id?? '')
+      this._crud.create(this.collectionName, log)
+    });
   }
 
   log(value:string, objectName:string, objectId:string){

@@ -1,0 +1,33 @@
+<div class="container text-center">
+
+	<h1 class="display-1">¿Mayor o menor?</h1>
+
+	<!-- Info sobre el juego -->
+	<div class="mt-4 mb-3">
+		<span class="game-info display-5 ">Puntos: {{ this.score }}</span>
+	</div>
+
+	<!-- Cartas -->
+	<div class="game-card">
+		<img *ngIf="this.gameStatus == 'in-progress'" style="
+			background-repeat: no-repeat;
+			background-position: center;
+			width: 14rem;
+			height: 20rem;
+			object-fit: none;
+			" 
+			src="{{ this.activeCard.images.svg }}" alt="">
+	</div>
+
+	<!-- Controles -->
+	<div class="mt-5 game-controls">
+		<button (click)="this.onNextCardSelected('bigger')" class=" me-4 btn btn-primary"> 
+			Mayor 
+		</button>
+
+		<button (click)="this.onNextCardSelected('lower')" class="btn btn-primary"> 
+			Menor 
+		</button>
+	</div>
+
+</div>

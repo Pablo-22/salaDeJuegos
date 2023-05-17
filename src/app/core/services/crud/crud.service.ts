@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, collection, collectionData, doc, docData, where, getDocs, setDoc, updateDoc, deleteDoc, query, Query } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { DataEntity } from '../dataEntity/data-entity';
+import { DataEntity } from '../../models/dataEntity/data-entity';
 
 
 @Injectable({

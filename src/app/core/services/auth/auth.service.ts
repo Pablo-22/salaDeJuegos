@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { User } from 'src/app/core/users/user';
+import { User } from 'src/app/core/models/users/user';
 import Swal from 'sweetalert2';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../models/users/users.service';
 import firebase from "@firebase/app-compat";
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -13,16 +14,19 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  currentUser:User|undefined
+  private currentUserAccessSubject = new BehaviorSubject<User|undefined>({} as User);
+  currentUser$ = this.currentUserAccessSubject.asObservable();
 
   constructor(
     private _auth : AngularFireAuth, 
-    private _users:UsersService,
+    private _usersService:UsersService,
     private _router:Router
   ) {
     this._auth.authState.subscribe(x => {
-      if (!x) {
-        this.currentUser = undefined
+      if (x) {
+          this._usersService.getByField('email', x.email?? '').then(user => {
+            this.currentUserAccessSubject.next(user);
+          });
       }
     })
   }
@@ -31,8 +35,8 @@ export class AuthService {
     try{
       let result = await this._auth.signInWithEmailAndPassword(email, password);
   
-      await this._users.getByField('email', email).then(user => {
-        this.currentUser = user
+      await this._usersService.getByField('email', email).then(user => {
+        this.currentUserAccessSubject.next(user);
         Swal.fire({
           title: '¡Hola de nuevo!',
           text: "Has podido ingresar correctamente",
@@ -77,11 +81,11 @@ export class AuthService {
   
       let user:User = new User();
       user.email = email;
-      result = this._users.create(user);
+      result = this._usersService.create(user);
 
       if (result) {
-        await this._users.getByField('email', user.email).then(user => { 
-          this.currentUser = user 
+        await this._usersService.getByField('email', user.email).then(user => { 
+          this.currentUserAccessSubject.next(user);
         })
 
         await Swal.fire({
@@ -94,7 +98,7 @@ export class AuthService {
         })
       }
 
-      return this.currentUser;
+      return this.currentUser$;
     }
     catch(error) {
       Swal.fire({

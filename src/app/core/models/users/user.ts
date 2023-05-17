@@ -1,5 +1,5 @@
 import { DataEntity } from "../dataEntity/data-entity";
-import { Log } from "../logs/log";
+import { Log } from "../../services/logs/log";
 
 export class User extends DataEntity {
 	email:string;

@@ -5,10 +5,12 @@ import { HomeComponent } from './features/home/home.component';
 import { AboutMeComponent } from './features/about-me/about-me.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path:'login', component: LoginComponent, data: {signUp: false}},
-  {path:'sign-up', component: LoginComponent, data: {signUp: true} },
-  {path:'about-me', component: AboutMeComponent},
+  { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent, data: {signUp: false} },
+  { path:'sign-up', component: LoginComponent, data: {signUp: true} },
+  { path:'about-me', component: AboutMeComponent },
+	{ path: 'games', loadChildren: () => import('./features/games/games.module').then(m => m.GamesModule) },
+
 ];
 
 @NgModule({

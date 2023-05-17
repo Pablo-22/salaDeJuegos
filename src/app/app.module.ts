@@ -6,18 +6,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { AboutMeComponent } from './features/about-me/about-me.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from './core/auth/auth.service';
-import { UsersService } from './core/users/users.service';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireModule } from '@angular/fire/compat';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { UsersService } from './core/models/users/users.service';
+import { AuthService } from './core/services/auth/auth.service';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,11 +27,8 @@ import { far } from '@fortawesome/free-regular-svg-icons';
     AppRoutingModule,
     FormsModule,
     FontAwesomeModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    CoreModule,
+    HttpClientModule,
   ],
   providers: [
     AuthService,

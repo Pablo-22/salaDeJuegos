@@ -1,4 +1,4 @@
-import { DataEntity } from "../dataEntity/data-entity";
+import { DataEntity } from "../../models/dataEntity/data-entity";
 
 export class Log extends DataEntity {
 	objectId:string = '';

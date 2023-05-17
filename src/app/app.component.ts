@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './core/auth/auth.service';
+import { AuthService } from './core/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,16 @@ import { AuthService } from './core/auth/auth.service';
 export class AppComponent{
   title = 'salaDeJuegos'
   isUserLogged: boolean = false
+  currentUserEmail:string = ''
 
   constructor(private _auth: AuthService){
-    this._auth.authState().subscribe(x => {
-      if(x){
+    this._auth.currentUser$.subscribe(x => {
+      if (x) {
         this.isUserLogged = true
-      } else {
+        this.currentUserEmail = x.email
+      }else {
         this.isUserLogged = false
+        this.currentUserEmail = ''
       }
     })
   }
