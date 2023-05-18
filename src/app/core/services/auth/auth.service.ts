@@ -23,10 +23,12 @@ export class AuthService {
     private _router:Router
   ) {
     this._auth.authState.subscribe(x => {
-      if (x) {
-          this._usersService.getByField('email', x.email?? '').then(user => {
-            this.currentUserAccessSubject.next(user);
-          });
+      if (x?.email) {
+        this._usersService.getByField('email', x.email?? '').then(user => {
+          this.currentUserAccessSubject.next(user);
+        });
+      } else {
+        this.currentUserAccessSubject.next(undefined);
       }
     })
   }

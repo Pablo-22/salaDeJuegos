@@ -1,0 +1,24 @@
+<h1 class="display-3 text-center mt-4">Sala de chat</h1>
+
+<div class="col-md-6 mx-auto mt-2" >
+	<div class="h-90 p-5 bg-body-tertiary border rounded-3 row">
+		<div style="height: 60vh; overflow: auto;">
+			<div class="col-md-8 offset-md-2">
+				<div *ngFor="let message of chatMessages" class="mb-4">
+					<div [ngClass]="this.currentUserClass(message.user.email)">
+						<strong>{{ message.user.email }}</strong> - {{ message.createdDate | date:'short' }}
+						<br>
+						{{ message.body }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-10">
+			<input class="form-control" type="text" [(ngModel)]="this.messageBody">
+		</div>
+		<button class="btn btn-primary col mx-3" (click)="this.onSend()">Enviar</button>
+	</div>
+</div>

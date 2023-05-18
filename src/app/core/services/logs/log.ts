@@ -3,7 +3,6 @@ import { DataEntity } from "../../models/dataEntity/data-entity";
 export class Log extends DataEntity {
 	objectId:string = '';
 	objectName:string = ''
-	createdDate:Date = new Date();
 	value:string = ''
 
 	constructor(value:string, objectName:string, objectId:string, ){

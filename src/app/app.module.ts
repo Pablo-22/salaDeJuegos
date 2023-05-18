@@ -14,13 +14,15 @@ import { UsersService } from './core/models/users/users.service';
 import { AuthService } from './core/services/auth/auth.service';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatRoomComponent } from './features/chat-room/chat-room/chat-room.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    AboutMeComponent
+    AboutMeComponent,
+    ChatRoomComponent
   ],
   imports: [
     BrowserModule,

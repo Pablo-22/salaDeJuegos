@@ -35,7 +35,6 @@ export class HangmanComponent implements OnInit {
 	ngOnInit(): void {
 		this.wordsList = this.shuffleArray(this.wordsList);
 		this.newGame();
-    console.log(this.secretWord)
 	}
 
 	shuffleArray(array:any) {

@@ -13,7 +13,7 @@ export class AppComponent{
 
   constructor(private _auth: AuthService){
     this._auth.currentUser$.subscribe(x => {
-      if (x) {
+      if (x?.email) {
         this.isUserLogged = true
         this.currentUserEmail = x.email
       }else {

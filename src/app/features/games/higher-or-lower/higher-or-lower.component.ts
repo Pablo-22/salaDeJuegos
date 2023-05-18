@@ -94,9 +94,6 @@ export class HigherOrLowerComponent implements OnInit {
 			activeCardValue = parseInt(activeCard.value);
 		}
 
-		console.log('ActiveCard', activeCardValue);
-		console.log('PreviousCard', previousCardValue);
-
 		if (activeCardValue == previousCardValue) {
 			return 'equal';
 		}
@@ -113,10 +110,8 @@ export class HigherOrLowerComponent implements OnInit {
 		if (!this.cards.includes(this.activeCard)) {
 			this.cards.push(this.activeCard);
 		}
-		console.log('cartas ANTES: ', this.cards);
 
 		this.cards = this.shuffleArray(this.cards);
-		console.log('shuffledCards: ', this.cards);
 		this.score = 0;
 		
 	}
