@@ -23,4 +23,8 @@ export class ListComponent implements OnInit {
     this.itemSelected.emit(item)
   }
 
+  reset(){
+    this.selectedItem = undefined
+  }
+
 }

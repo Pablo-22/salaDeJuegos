@@ -20,27 +20,47 @@
 
 <div class="container">
    <div class="row">
-      <div class="jumbotron col">
-         <h1 class="display-4">Ahorcado</h1>
-         <p class="lead">El clásico juego del ahorcado. Intentá adivinar la palabra con la menor cantidad de intentos posible.</p>
+      <div class="row">
+         <div class="jumbotron col">
+            <h1 class="display-4">Ahorcado</h1>
+            <p class="lead">El clásico juego del ahorcado. Intentá adivinar la palabra con la menor cantidad de intentos posible.</p>
+            <hr class="my-4">
+            <p>Utilizá los botones en pantalla para seleccionar las letras.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" routerLink="games/hangman" role="button">Jugar</a>
+            </p>
+         </div>
+         <div class="jumbotron col">
+            <h1 class="display-4">Mayor o menor</h1>
+            <p class="lead">¿Podrás adivinar si la próxima carta será mayor o menor? ¿Cuál será tu puntaje máximo?</p>
+            <hr class="my-4">
+            <p>Utilizá los botones en pantalla para seleccionar si la próxima carta será mayor o menor a la actual.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" routerLink="games/higher-or-lower" role="button">Jugar</a>
+            </p>
+         </div>
+         <div class="jumbotron col">
+            <h1 class="display-4">Preguntados</h1>
+            <p class="lead">¿Podés identificar de qué raza es el perro en pantalla?</p>
+            <hr class="my-4">
+            <p>Elegí entre las cuatro opciones, cuál es la raza del perro de la imagen.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" routerLink="games/guess-the-dogs-breed" role="button">Jugar</a>
+            </p>
+         </div>
+      </div>
+
+      <div class="jumbotron col mt-4">
+         <h1 class="display-4">Pong</h1>
+         <p class="lead">El clásico juego del pong.</p>
          <hr class="my-4">
-         <p>Utilizá los botones en pantalla para seleccionar las letras.</p>
+         <p>Intentá evitar que la pelota atraviese tu lado.</p>
          <p class="lead">
-           <a class="btn btn-primary btn-lg" routerLink="games/hangman" role="button">Jugar</a>
+           <a class="btn btn-primary btn-lg" routerLink="games/pong" role="button">Acceder</a>
          </p>
       </div>
 
-      <div class="jumbotron col">
-         <h1 class="display-4">Mayor o menor</h1>
-         <p class="lead">¿Podrás adivinar si la próxima carta será mayor o menor? ¿Cuál será tu puntaje máximo?</p>
-         <hr class="my-4">
-         <p>Utilizá los botones en pantalla para seleccionar si la próxima carta será mayor o menor a la actual.</p>
-         <p class="lead">
-           <a class="btn btn-primary btn-lg" routerLink="games/higher-or-lower" role="button">Jugar</a>
-         </p>
-      </div>
-
-      <div class="jumbotron col">
+      <div class="jumbotron col mt-4">
          <h1 class="display-4">Sala de chat</h1>
          <p class="lead">Compartí tu experiencia en la web con los demás usuarios.</p>
          <hr class="my-4">
@@ -50,5 +70,4 @@
          </p>
       </div>
    </div>
-   
 </div>

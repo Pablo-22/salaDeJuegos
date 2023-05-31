@@ -1,0 +1,33 @@
+<div class="p-5">
+	<div class="d-flex flex-row gap-5">
+			<div style="max-width: 35vw;" class="card">
+				<img class="card-img-top" src="{{ this.gameQuestion?.image }}">
+				<div class="p-4">
+					<h5 class="card-title">¿Qué raza es?</h5>
+					<p>
+						Seleccione la raza del perro de la foto entre las opciones en pantalla.
+					</p>
+				</div>
+			</div>
+
+			<div style="max-width: 35vw;" class="card">
+				<div class="p-4">
+					<h4>Puntos: {{this.score}}</h4>
+					<h5 class="card-title">¿Qué raza es?</h5>
+					<p>
+						Seleccione la raza del perro de la foto entre las opciones en pantalla.
+					</p>
+
+					<app-list
+						[dataSource]="this.gameQuestion?.options"
+						(itemSelected)="onAnswer($event)"
+					></app-list>
+				</div>
+
+				<div *ngIf="this.showCorrectAnswer" class="mx-auto mt-3">
+					<div class="display-4 mb-2">{{ this.feedbackText }}</div>
+					<div class="fw-bold">la respuesta correcta era: {{ this.gameQuestion?.breed }}</div>
+				</div>
+			</div>
+	</div>
+</div>
