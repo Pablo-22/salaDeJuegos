@@ -12,7 +12,7 @@ const routes: Routes = [
   { path:'sign-up', component: LoginComponent, data: {signUp: true} },
   { path:'about-me', canActivate: [LoggedGuard], component: AboutMeComponent },
   { path:'chat-room', canActivate: [LoggedGuard], component: ChatRoomComponent },
-	{ path: 'games', /*canActivateChild: [LoggedGuard], */ loadChildren: () => import('./features/games/games.module').then(m => m.GamesModule) },
+	{ path: 'games', canActivateChild: [LoggedGuard], loadChildren: () => import('./features/games/games.module').then(m => m.GamesModule) },
 
 ];
 
