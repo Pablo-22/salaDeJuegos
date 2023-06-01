@@ -1,4 +1,35 @@
-<button (click)="this.start()"> Reiniciar </button>
+<div class="container row mx-auto text-center mt-3  align-items-center">
+	<div class="col">
+		<div class="row">
+			<span class="display-3 mb-3"> Jugador 1: <span class="fw-bold"> {{ this.scorePlayer1 }} </span>  </span>
+		</div>
+		<div class="row">
+			<div>
+				<b class="mb-3"> Controles </b> <br/>
+				Arriba  <kbd class="">Q</kbd>  <br/>
+				Abajo  <kbd class="">A</kbd>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="d-flex justify-content-around">
+			<button class="btn btn-primary" (click)="this.onResetGame()"> Reiniciar juego </button>
+			<button class="btn btn-primary" (click)="this.onResetScore()"> Reiniciar puntaje </button>
+		</div>
+	</div>
+	<div class="col">
+		<div class="row">
+			<span class="display-3 mb-3"> Jugador 2: <span class="fw-bold"> {{ this.scorePlayer2 }} </span>  </span>
+		</div>
+		<div class="row">
+			<div>
+				<b class="mb-3"> Controles </b> <br/>
+				Arriba  <kbd class="">O</kbd>  <br/>
+				Abajo  <kbd class="">L</kbd>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div #gameContainer class="game-container">
 	<div class="position-relative">

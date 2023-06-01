@@ -9,15 +9,22 @@ import { Ball } from './models/ball'
 })
 export class PongComponent implements OnInit, AfterViewInit {
 
-  time = 50
-  movement = 20
-  movementBar = 20
+  time = 12
+  movement = 6
+  movementBallX = 6
+  movementBallY = 6
+
+
+  movementBar = 5
   width:number = 0
   height:number = 0
   controlGame: any
   player1 = new Player()
   player2 = new Player()
   ball = new Ball()
+
+  scorePlayer1:number = 0
+  scorePlayer2:number = 0
 
   @ViewChild('bar1', { read: ElementRef })
   htmlBar1!: ElementRef<HTMLElement>
@@ -50,7 +57,20 @@ export class PongComponent implements OnInit, AfterViewInit {
   }
 
   init() {
+    
+    this.movement = 6
+    this.movementBallX = 6
+    this.movementBallY = 6
+
+    this.htmlBar1.nativeElement.style.backgroundColor = '#000'
+    this.htmlBar2.nativeElement.style.backgroundColor = '#000'
+    
     this.htmlBall.nativeElement.style.left = '0px'
+    this.htmlBall.nativeElement.style.top = (this.gameContainer.nativeElement.clientHeight / 2) + 'px'
+    
+    this.htmlBar1.nativeElement.style.top = '0px'
+    this.htmlBar2.nativeElement.style.bottom = '0px'
+    
     this.ball.state = 1
     this.ball.direction = 1 // right 1, left 2
     this.player1.keyPress = false
@@ -58,6 +78,20 @@ export class PongComponent implements OnInit, AfterViewInit {
     this.player2.keyPress = false
     this.player2.key = ''
   }
+
+  onResetGame(){
+    this.stop()
+    this.init()
+    this.start()
+  }
+
+  onResetScore(){
+    this.scorePlayer1 = 0
+    this.scorePlayer2 = 0
+    this.onResetGame()
+  }
+
+
 
   stop() {
     clearInterval(this.controlGame)
@@ -71,13 +105,17 @@ export class PongComponent implements OnInit, AfterViewInit {
 
 
   checkIfLost() {
-    if (this.htmlBall.nativeElement.offsetLeft >= this.width + 20) {
+    if (this.htmlBall.nativeElement.offsetLeft >= this.width + this.movement) {
       this.stop()
-      console.log("punto player 1")
+      this.scorePlayer1++
+      this.htmlBar1.nativeElement.style.backgroundColor = 'rgb(73, 224, 136)'
+      this.htmlBar2.nativeElement.style.backgroundColor = '#c95f5f'
     }
-    if (this.htmlBall.nativeElement.offsetLeft <= -20) {
+    if (this.htmlBall.nativeElement.offsetLeft <= - this.movement) {
       this.stop()
-      console.log("punto player 2")
+      this.scorePlayer2++
+      this.htmlBar1.nativeElement.style.backgroundColor = '#c95f5f'
+      this.htmlBar2.nativeElement.style.backgroundColor = 'rgb(73, 224, 136)'
     }
   }
 
@@ -85,35 +123,28 @@ export class PongComponent implements OnInit, AfterViewInit {
     this.checkStateBall()
     switch (this.ball.state) {
       case 1: // derecha, abajo
-        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft + this.movement) + "px"
-        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop + this.movement) + "px"
+        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft + this.movementBallX) + "px"
+        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop + this.movementBallY) + "px"
         break
       case 2: // derecha, arriba
-        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft + this.movement) + "px"
-        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop - this.movement) + "px"
+        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft + this.movementBallX) + "px"
+        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop - this.movementBallY) + "px"
         break
       case 3: // izquierda, abajo
-        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft - this.movement) + "px"
-        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop + this.movement) + "px"
+        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft - this.movementBallX) + "px"
+        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop + this.movementBallY) + "px"
         break
       case 4: // izquierda, arriba
-        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft - this.movement) + "px"
-        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop - this.movement) + "px"
+        this.htmlBall.nativeElement.style.left = (this.htmlBall.nativeElement.offsetLeft - this.movementBallX) + "px"
+        this.htmlBall.nativeElement.style.top = (this.htmlBall.nativeElement.offsetTop - this.movementBallY) + "px"
         break
     }
   }
 
   checkStateBall() {
 
-    if (this.collidePlayer2()) {
-      this.ball.direction = 2
-      if (this.ball.state == 1) this.ball.state = 3
-      if (this.ball.state == 2) this.ball.state = 4
-    } else if (this.collidePlayer1()) {
-      this.ball.direction = 1
-      if (this.ball.state == 3) this.ball.state = 1
-      if (this.ball.state == 4) this.ball.state = 2
-    }
+    this.collidePlayer2()
+    this.checkCollidePlayer1()
 
     if (this.ball.direction === 1) {
       if (this.htmlBall.nativeElement.offsetTop >= this.height) this.ball.state = 2
@@ -124,10 +155,29 @@ export class PongComponent implements OnInit, AfterViewInit {
     }
   }
 
-  collidePlayer1() {
+  checkCollidePlayer1() {
     if (this.htmlBall.nativeElement.offsetLeft <= (this.htmlBar1.nativeElement.clientWidth) &&
       this.htmlBall.nativeElement.offsetTop >= this.htmlBar1.nativeElement.offsetTop &&
       this.htmlBall.nativeElement.offsetTop <= (this.htmlBar1.nativeElement.offsetTop + this.htmlBar1.nativeElement.clientHeight)) {
+        this.ball.direction = 1
+      
+      // GOLPE EN EL BORDE ARRIBA
+      if (this.htmlBall.nativeElement.offsetTop <= this.htmlBar1.nativeElement.offsetTop + this.htmlBar1.nativeElement.clientHeight * (2 / 6) ){
+        this.movementBallY = 8
+        if (this.ball.state == 3 || this.ball.state == 4) this.ball.state = 2 // DERECHA, ARRIBA
+      }else {
+        // GOLPE EN EL BORDE ABAJO
+        if(this.htmlBall.nativeElement.offsetTop >= this.htmlBar1.nativeElement.offsetTop + this.htmlBar1.nativeElement.clientHeight * (4 / 6)) {
+          this.movementBallY = 8
+          if (this.ball.state == 3 || this.ball.state == 4) this.ball.state = 1 // DERECHA, ARRIBA
+        }else {
+          this.movementBallY = 4
+          if (this.ball.state == 3) this.ball.state = 1
+          if (this.ball.state == 4) this.ball.state = 2
+        }
+      }
+      console.log('movementY', this.movementBallY)
+      
       return true
     }
 
@@ -135,14 +185,28 @@ export class PongComponent implements OnInit, AfterViewInit {
   }
 
   collidePlayer2() {
-    console.log('WIDTH:', this.width - this.htmlBar2.nativeElement.clientWidth)
-    console.log('offsetLEFT:', this.htmlBall.nativeElement.offsetLeft)
-    console.log('-----------------------------------------------------')
-
-    if (this.htmlBall.nativeElement.offsetLeft >= (this.width - this.htmlBar2.nativeElement.clientWidth)
+    if (this.htmlBall.nativeElement.offsetLeft >= (this.width - this.htmlBar2.nativeElement.clientWidth - 30)
       && this.htmlBall.nativeElement.offsetTop >= this.htmlBar2.nativeElement.offsetTop 
       && this.htmlBall.nativeElement.offsetTop <= (this.htmlBar2.nativeElement.offsetTop + this.htmlBar2.nativeElement.clientHeight)
     ) {
+        this.ball.direction = 2
+
+        // GOLPE EN EL BORDE ABAJO
+      if (this.htmlBall.nativeElement.offsetTop <= this.htmlBar2.nativeElement.offsetTop + this.htmlBar2.nativeElement.clientHeight * (2 / 6) ){
+        this.movementBallY = 8
+        if (this.ball.state == 1 || this.ball.state == 2) this.ball.state = 4 // IZQUIERDA, ABAJO
+      }else {
+        // GOLPE EN EL BORDE ABAJO
+        if(this.htmlBall.nativeElement.offsetTop >= this.htmlBar2.nativeElement.offsetTop + this.htmlBar2.nativeElement.clientHeight * (4 / 6)) {
+          this.movementBallY = 8
+          if (this.ball.state == 1 || this.ball.state == 2) this.ball.state = 3 // IZQUIERDA, ARRIBA
+        }else {
+          this.movementBallY = 4
+          if (this.ball.state == 1) this.ball.state = 3
+          if (this.ball.state == 2) this.ball.state = 4
+        }
+      }
+
       return true
     }
     return false
