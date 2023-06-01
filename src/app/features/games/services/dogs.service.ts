@@ -38,7 +38,6 @@ export class DogsService {
 					this.breedsList.push(key);
 				}
 			});
-			console.log('resultado', result);
 		});
 	}
 
@@ -61,7 +60,7 @@ export class DogsService {
 		this.shuffleArray(this.breedsList);
 		let filteredArray = this.breedsList.filter(x => { return x !== correctAnswer })
 		let optionsArray = filteredArray.slice(0, optionsNumber)
-		optionsArray.push(correctAnswer);
+		optionsArray.push(this.formatBreed(correctAnswer));
 		return optionsArray;
 	}
 

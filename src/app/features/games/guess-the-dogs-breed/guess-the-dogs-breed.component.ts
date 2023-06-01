@@ -12,10 +12,10 @@ export class GuessTheDogsBreedComponent implements OnInit, AfterViewInit {
 	gameQuestion:any;
 	showCorrectAnswer:boolean = false;
 	score:number = 0;
-  feedbackText:string = ''
+  	feedbackText:string = ''
 
-  @ViewChild('app-list')
-  child: ListComponent = new ListComponent;
+	@ViewChild('app-list')
+	child: ListComponent = new ListComponent;
 
 	constructor(private _dogsService:DogsService) {
 		this._dogsService.getDogBreedsPlainList()
@@ -24,9 +24,9 @@ export class GuessTheDogsBreedComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 	}
 
-  ngAfterViewInit(): void {
+  	ngAfterViewInit(): void {
 		this.newQuestion();
-  }
+  	}
 
 	newQuestion(){
 		this._dogsService.fetchRandomImg().subscribe(result => {
@@ -37,14 +37,14 @@ export class GuessTheDogsBreedComponent implements OnInit, AfterViewInit {
 			this._dogsService.shuffleArray(options);
 
 			this.gameQuestion = { image: imgUrl, breed: dogBreed, options: options }
-      this.child.reset()
+      		this.child?.reset()
 		})
 	}
 
 
 
 	evaluateAnswer(answer:string){
-		if (answer == this.gameQuestion.breed) {
+		if (answer == this._dogsService.formatBreed(this.gameQuestion.breed)) {
 			return true
 		}
 		return false
