@@ -57,10 +57,11 @@ export class DogsService {
 	}
 
 	getQuestionOptions(correctAnswer:string, optionsNumber:number){
+		let formattedCorrectAnswer = this.formatBreed(correctAnswer)
 		this.shuffleArray(this.breedsList);
-		let filteredArray = this.breedsList.filter(x => { return x !== correctAnswer })
+		let filteredArray = this.breedsList.filter(x => { return x !== formattedCorrectAnswer })
 		let optionsArray = filteredArray.slice(0, optionsNumber)
-		optionsArray.push(this.formatBreed(correctAnswer));
+		optionsArray.push(formattedCorrectAnswer);
 		return optionsArray;
 	}
 
